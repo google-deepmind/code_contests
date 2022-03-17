@@ -19,8 +19,6 @@
 //
 //   print_names /path/to/dataset/code_contests_train*
 
-#include <fcntl.h>
-
 #include <iostream>
 #include <tuple>
 #include <vector>
@@ -38,7 +36,7 @@ using ::deepmind::code_contests::ContestProblem;
 void PrintNames(const absl::Span<const absl::string_view> filenames) {
   for (const absl::string_view filename : filenames) {
     riegeli::RecordReader<riegeli::FdReader<>> reader(
-        std::forward_as_tuple(filename, O_RDONLY));
+        std::forward_as_tuple(filename));
     ContestProblem problem;
     while (reader.ReadRecord(problem)) {
       std::cout << problem.name() << '\n';

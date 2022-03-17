@@ -4,6 +4,10 @@ licenses(["notice"])
 
 exports_files(["LICENSE"])
 
+package(
+    default_visibility = ["//:__subpackages__"],
+)
+
 proto_library(
     name = "contest_problem_proto",
     srcs = ["contest_problem.proto"],

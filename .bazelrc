@@ -1,3 +1,5 @@
+build --repo_env=CC=clang
 build --cxxopt="-std=c++17"
 build --cxxopt=-D_GLIBCXX_USE_CXX11_ABI=0
 build --copt="-w"
+build --copt="-fbracket-depth=512"

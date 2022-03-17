@@ -17,7 +17,7 @@ HackerEarth | https://www.hackerearth.com | [description2code](https://github.co
 Problems include test cases in the form of paired inputs and outputs, as well as
 both correct and incorrect human solutions in a variety of languages.
 
-## Usage
+## Downloading the dataset
 
 [Install the Cloud SDK](https://cloud.google.com/sdk/docs/quickstart), which
 provides the `gsutil` utility. You can then download the full data (~3GiB) with,
@@ -58,10 +58,31 @@ bazel run -c opt \
   :print_names_and_sources /tmp/dm-code_contests/code_contests_train.riegeli*
 ```
 
-## Planned updates
+## Executing and evaluating solutions
 
-We plan to update this repository with code for executing and evaluating
-potential solutions.
+The `execution` subdirectory contains code for executing a solution and
+evaluating whether it solves a problem. `solve_example` demonstrates this
+functionality, and can be run with e.g.
+
+```
+bazel run -c opt execution:solve_example -- \
+  /tmp/dm-code_contests/code_contests_valid.riegeli
+```
+
+The execution code defaults to using Python 3.9 and 2.7, located at
+`/usr/bin/python3.9` and `/usr/bin/python2.7`, with standard libraries at
+`/usr/lib/python3.9` and `/usr/lib/python2.7`. These can be changed with the
+flags defined in `py_locations.cc`, for example:
+
+```
+bazel run -c opt execution:solve_example -- \
+  --valid_path=/tmp/dm-code_contests/code_contests_valid.riegeli \
+  --python3_path=/usr/bin/python3.10 --python3_library_paths=/usr/lib/python3.10
+```
+
+## Supported platforms
+
+This repository is supported on Linux, compiled with clang.
 
 ## Citing this work
 

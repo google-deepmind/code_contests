@@ -39,9 +39,9 @@ git_repository(
 
 http_archive(
     name = "com_google_riegeli",
-    sha256 = "4a6062197672d5624c1ec1d161a7e273f608fad34c0d68bf4f0767e175dbf7cd",
-    strip_prefix = "riegeli-587c7921700a58f53fbd2b47fcf9c6dc38477a32",
-    url = "https://github.com/google/riegeli/archive/587c7921700a58f53fbd2b47fcf9c6dc38477a32.tar.gz",  # 2021-11-16
+    sha256 = "059af80271b6e62df2662fbf0d1d2724a8eaf881d16459d59d4025132126672c",
+    strip_prefix = "riegeli-75aa942e1ddb5830eadac06339cfd4eb740da6f6",
+    url = "https://github.com/google/riegeli/archive/75aa942e1ddb5830eadac06339cfd4eb740da6f6.tar.gz",  # 2022-02-17
 )
 
 http_archive(
@@ -90,3 +90,44 @@ http_archive(
     strip_prefix = "highwayhash-276dd7b4b6d330e4734b756e97ccfb1b69cc2e12",
     urls = ["https://github.com/google/highwayhash/archive/276dd7b4b6d330e4734b756e97ccfb1b69cc2e12.zip"],  # 2019-02-22
 )
+
+http_archive(
+    name = "com_google_farmhash",
+    build_file = "//third_party:farmhash.BUILD",
+    sha256 = "6560547c63e4af82b0f202cb710ceabb3f21347a4b996db565a411da5b17aba0",
+    strip_prefix = "farmhash-816a4ae622e964763ca0862d9dbd19324a1eaf45",
+    urls = [
+        "https://github.com/google/farmhash/archive/816a4ae622e964763ca0862d9dbd19324a1eaf45.tar.gz",
+    ],
+)
+
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+
+# Include the Sandboxed API dependency if it does not already exist in this
+# project. This ensures that this workspace plays well with other external
+# dependencies that might use Sandboxed API.
+maybe(
+    git_repository,
+    name = "com_google_sandboxed_api",
+    # This example depends on the latest master. In an embedding project, it
+    # is advisable to pin Sandboxed API to a specific revision instead.
+    commit = "10c04ed42f51dee1fa5f145e86ca3658a3876cfa",  # 2022-02-17
+    # branch = "main",
+    remote = "https://github.com/google/sandboxed-api.git",
+)
+
+# From here on, Sandboxed API files are available. The statements below setup
+# transitive dependencies such as Abseil. Like above, those will only be
+# included if they don't already exist in the project.
+load(
+    "@com_google_sandboxed_api//sandboxed_api/bazel:sapi_deps.bzl",
+    "sapi_deps",
+)
+
+sapi_deps()
+
+# Need to separately setup Protobuf dependencies in order for the build rules
+# to work.
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
