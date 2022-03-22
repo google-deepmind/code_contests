@@ -89,18 +89,19 @@ This repository is supported on Linux, compiled with clang.
 If you use this dataset or code, please cite this paper:
 
 ```
-@misc{alphacode,
-    title={Competition-Level Code Generation with AlphaCode},
+@article{li2022competition,
+  title={Competition-Level Code Generation with AlphaCode},
     author={Li, Yujia and Choi, David and Chung, Junyoung and Kushman, Nate and
-    Schrittwieser, Julian and Leblond, Rémi and Eccles, Tom and
+    Schrittwieser, Julian and Leblond, R{\'e}mi and Eccles, Tom and
     Keeling, James and Gimeno, Felix and Dal Lago, Agustin and
     Hubert, Thomas and Choy, Peter and de Masson d'Autume, Cyprien and
     Babuschkin, Igor and Chen, Xinyun and Huang, Po-Sen and Welbl, Johannes and
     Gowal, Sven and Cherepanov, Alexey and Molloy, James and
     Mankowitz, Daniel and Sutherland Robson, Esme and Kohli, Pushmeet and
     de Freitas, Nando and Kavukcuoglu, Koray and Vinyals, Oriol},
-    year={2022},
-    month={Feb}}
+  journal={arXiv preprint arXiv:2203.07814},
+  year={2022}
+}
 ```
 
 ## License
