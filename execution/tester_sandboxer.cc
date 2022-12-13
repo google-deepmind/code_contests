@@ -280,7 +280,7 @@ absl::StatusOr<SandboxWithOutputFds> TesterSandboxer::CreateSandboxWithFds(
     return absl::InvalidArgumentError("Empty command provided");
   }
   auto executor =
-      absl::make_unique<sandbox2::Executor>(command[0], command, env);
+      std::make_unique<sandbox2::Executor>(command[0], command, env);
   if (!cwd.empty()) {
     executor->set_cwd(cwd);
   }
@@ -322,7 +322,7 @@ absl::StatusOr<SandboxWithOutputFds> TesterSandboxer::CreateSandboxWithFds(
 
   ASSIGN_OR_RETURN(std::unique_ptr<sandbox2::Policy> policy,
                    CreatePolicy(command[0], ro_files, ro_dirs, rw_dirs));
-  return SandboxWithOutputFds(absl::make_unique<sandbox2::Sandbox2>(
+  return SandboxWithOutputFds(std::make_unique<sandbox2::Sandbox2>(
                                   std::move(executor), std::move(policy)),
                               stdout_fd, stderr_fd);
 }
@@ -353,7 +353,7 @@ absl::StatusOr<MultiTestResult> TesterSandboxer::Test(
         "provided.");
   }
   MultiTestResult multi_test_result;
-  std::unique_ptr<TempPath> temp_path = absl::make_unique<TempPath>();
+  std::unique_ptr<TempPath> temp_path = std::make_unique<TempPath>();
   if (!temp_path) {
     return absl::UnknownError("Unable to create temporary directory for code.");
   }
@@ -463,7 +463,10 @@ sandbox2::PolicyBuilder CreateBasePolicy(absl::string_view binary,
   sandbox2::PolicyBuilder builder;
 
   // Must be before AllowStaticStartup.
+#ifdef __NR_readlink
   builder.AllowSyscall(__NR_readlink);
+#endif
+  builder.AllowSyscall(__NR_readlinkat);
 
   // Allow general, safe syscalls.
   builder.AllowExit();           // process/thread: exit, exit_group
@@ -493,15 +496,23 @@ sandbox2::PolicyBuilder CreateBasePolicy(absl::string_view binary,
 
   // Miscellaneous filesystem syscalls not covered above.
   builder.AllowSyscalls({
+#ifdef __NR_access
       __NR_access,
+#endif
+      __NR_faccessat,
       __NR_close,
       __NR_lseek,
       __NR_getcwd,
       __NR_pipe2,
       __NR_ioctl,
+#ifdef __NR_unlink
       __NR_unlink,
+#endif
+      __NR_unlinkat,
       __NR_dup,
+#ifdef __NR_poll
       __NR_poll,
+#endif
       __NR_ppoll,
       __NR_statx,
   });
@@ -512,7 +523,9 @@ sandbox2::PolicyBuilder CreateBasePolicy(absl::string_view binary,
       __NR_epoll_create1,
       __NR_epoll_ctl,
       __NR_epoll_pwait,
+#ifdef __NR_epoll_wait
       __NR_epoll_wait,
+#endif
   });
 
   // syscall needed for Node's available memory check

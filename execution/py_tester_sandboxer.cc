@@ -14,7 +14,7 @@
 
 #include "execution/py_tester_sandboxer.h"
 
-#include <asm/unistd_64.h>
+#include <asm/unistd.h>
 #include <stdio.h>
 #include <sys/syscall.h>
 
@@ -165,10 +165,19 @@ PyTesterSandboxer::CreatePolicy(absl::string_view binary_path,
 
   builder.AllowSyscall(__NR_mprotect);
   builder.AllowSyscall(__NR_mremap);
+#ifdef __NR_select
   builder.AllowSyscall(__NR_select);
+#endif
   builder.AllowSyscall(__NR_pselect6);
+#ifdef __NR_mkdir
   builder.AllowSyscall(__NR_mkdir);
+#endif
+  builder.AllowSyscall(__NR_mkdirat);
+#ifdef __NR_rename
   builder.AllowSyscall(__NR_rename);
+#endif
+  builder.AllowSyscall(__NR_renameat);
+  builder.AllowSyscall(__NR_renameat2);
 
   // Python fails if /dev/urandom is mounted as read-only, despite opening it as
   // O_RDONLY. For now, just mount it as read-write.

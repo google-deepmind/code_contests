@@ -222,7 +222,7 @@ ExecutionResult ExecutionResultFromTestSandboxResult(
 
 inline bool GetCurrentWorkingDirectory(std::string* s) {
   constexpr size_t len = 1ul << 16;
-  auto buffer = absl::make_unique<char[]>(len);
+  auto buffer = std::make_unique<char[]>(len);
   char* p = getcwd(buffer.get(), len);
   if (p == nullptr) {
     return false;

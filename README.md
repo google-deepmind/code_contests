@@ -2,7 +2,7 @@
 
 CodeContests is a competitive programming dataset for machine-learning. This
 dataset was used when training
-[AlphaCode](https://deepmind.com/blog/article/Competitive-programming-with-AlphaCode).
+[AlphaCode](https://deepmind.com/blog/article/Competitive-programming-with-AlphaCode). AlphaCode has been published in [Science](https://www.science.org/doi/10.1126/science.abq1158), with a preprint on [arXiv](https://arxiv.org/abs/2203.07814).
 
 It consists of programming problems, from a variety of sources:
 
@@ -89,19 +89,19 @@ This repository is supported on Linux, compiled with clang.
 If you use this dataset or code, please cite this paper:
 
 ```
-@article{li2022competition,
-  title={Competition-Level Code Generation with AlphaCode},
-    author={Li, Yujia and Choi, David and Chung, Junyoung and Kushman, Nate and
-    Schrittwieser, Julian and Leblond, R{\'e}mi and Eccles, Tom and
-    Keeling, James and Gimeno, Felix and Dal Lago, Agustin and
-    Hubert, Thomas and Choy, Peter and de Masson d'Autume, Cyprien and
-    Babuschkin, Igor and Chen, Xinyun and Huang, Po-Sen and Welbl, Johannes and
-    Gowal, Sven and Cherepanov, Alexey and Molloy, James and
-    Mankowitz, Daniel and Sutherland Robson, Esme and Kohli, Pushmeet and
-    de Freitas, Nando and Kavukcuoglu, Koray and Vinyals, Oriol},
-  journal={arXiv preprint arXiv:2203.07814},
-  year={2022}
-}
+@article{
+  doi:10.1126/science.abq1158,
+  author = {Yujia Li  and David Choi  and Junyoung Chung  and Nate Kushman  and Julian Schrittwieser  and R{\'e}mi Leblond  and Tom Eccles  and James Keeling  and Felix Gimeno  and Agustin Dal Lago  and Thomas Hubert  and Peter Choy  and Cyprien de Masson d’Autume  and Igor Babuschkin  and Xinyun Chen  and Po-Sen Huang  and Johannes Welbl  and Sven Gowal  and Alexey Cherepanov  and James Molloy  and Daniel J. Mankowitz  and Esme Sutherland Robson  and Pushmeet Kohli  and Nando de Freitas  and Koray Kavukcuoglu  and Oriol Vinyals },
+  title = {Competition-level code generation with AlphaCode},
+  journal = {Science},
+  volume = {378},
+  number = {6624},
+  pages = {1092-1097},
+  year = {2022},
+  doi = {10.1126/science.abq1158},
+  URL = {https://www.science.org/doi/abs/10.1126/science.abq1158},
+  eprint = {https://www.science.org/doi/pdf/10.1126/science.abq1158},
+  abstract = {Programming is a powerful and ubiquitous problem-solving tool. Systems that can assist programmers or even generate programs themselves could make programming more productive and accessible. Recent transformer-based neural network models show impressive code generation abilities yet still perform poorly on more complex tasks requiring problem-solving skills, such as competitive programming problems. Here, we introduce AlphaCode, a system for code generation that achieved an average ranking in the top 54.3\% in simulated evaluations on recent programming competitions on the Codeforces platform. AlphaCode solves problems by generating millions of diverse programs using specially trained transformer-based networks and then filtering and clustering those programs to a maximum of just 10 submissions. This result marks the first time an artificial intelligence system has performed competitively in programming competitions. Computer programming competitions are popular tests among programmers that require critical thinking informed by experience and creating solutions to unforeseen problems, both of which are key aspects of human intelligence but challenging to mimic by machine learning models. Using self-supervised learning and an encoder-decoder transformer architecture, Li et al. developed AlphaCode, a deep-learning model that can achieve approximately human-level performance on the Codeforces platform, which regularly hosts these competitions and attracts numerous participants worldwide (see the Perspective by Kolter). The development of such coding platforms could have a huge impact on programmers’ productivity. It may even change the culture of programming by shifting human work to formulating problems, with machine learning being the main one responsible for generating and executing codes. —YS Modern machine learning systems can achieve average human-level performance in popular competitive programming contests.}}
 ```
 
 ## License
