@@ -17,6 +17,16 @@ HackerEarth | https://www.hackerearth.com | [description2code](https://github.co
 Problems include test cases in the form of paired inputs and outputs, as well as
 both correct and incorrect human solutions in a variety of languages.
 
+## Install bazel
+
+First [install bazel](https://docs.bazel.build/versions/main/install.html)
+and verify it builds correctly (we only support Linux with clang, but other
+platforms might work):
+
+```sh
+bazel build -c opt :print_names_and_sources
+```
+
 ## Downloading the dataset
 
 [Install the Cloud SDK](https://cloud.google.com/sdk/docs/quickstart), which
@@ -66,8 +76,13 @@ functionality, and can be run with e.g.
 
 ```
 bazel run -c opt execution:solve_example -- \
-  /tmp/dm-code_contests/code_contests_valid.riegeli
+  --valid_path=/tmp/dm-code_contests/code_contests_valid.riegeli
 ```
+
+Note, for the last command you should see one `Compilation failed` and two
+`Compilation succeeded`, if you see three `Compilation failed` then there is
+likely an issue with the Python version used, please install and try several
+ones before reporting a bug.
 
 The execution code defaults to using Python 3.9 and 2.7, located at
 `/usr/bin/python3.9` and `/usr/bin/python2.7`, with standard libraries at
@@ -80,9 +95,43 @@ bazel run -c opt execution:solve_example -- \
   --python3_path=/usr/bin/python3.10 --python3_library_paths=/usr/lib/python3.10
 ```
 
+In Debian/Ubuntu you can install specific Python versions with
+
+```
+sudo apt install python3.9 python3.10 python3.11
+```
+
+and you can check if you have some version installed by `which` provides output:
+
+```
+which python3.11
+```
+
+Note that the Python used for building with bazel and for executing inside the sandbox can be different.
+
+### Note on data and sandbox consistency
+
+The incorrect and correct solutions attached to problems are not guaranteed to compile and execute in the exact same way as in their original contest website (for example different compiler versions or flags or different library versions). Some of the solutions will fail compilation, or will produce sandbox violations, especially if they are incorrect.
+
+### FAQ
+
+We recommend running the following before reporting bugs, which wipes out the
+bazel state and sometimes fixes transient errors.
+
+```
+bazel clean --expunge
+rm -rf ~/.cache/bazel
+```
+
 ## Supported platforms
 
 This repository is supported on Linux, compiled with clang.
+
+People on MacOS have reported this error:
+https://github.com/deepmind/code_contests/issues/5
+
+Windows have reported this error:
+https://github.com/deepmind/code_contests/issues/9
 
 ## Citing this work
 

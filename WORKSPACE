@@ -4,7 +4,8 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "com_github_grpc_grpc",
     remote = "https://github.com/grpc/grpc.git",
-    tag = "v1.38.1",
+    # Using Python 3.10 and a version previous to dbe73c9004e483d24168c220cd589fe1824e72bc fails with "Python Configuration Error: Problem getting python include path for /usr/bin/python3"
+    commit = "aea02409bb9a60f838e09f422ea04ec36c58c04a",
 )
 
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")

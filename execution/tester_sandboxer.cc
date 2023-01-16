@@ -463,10 +463,7 @@ sandbox2::PolicyBuilder CreateBasePolicy(absl::string_view binary,
   sandbox2::PolicyBuilder builder;
 
   // Must be before AllowStaticStartup.
-#ifdef __NR_readlink
-  builder.AllowSyscall(__NR_readlink);
-#endif
-  builder.AllowSyscall(__NR_readlinkat);
+  builder.AllowReadlink();
 
   // Allow general, safe syscalls.
   builder.AllowExit();           // process/thread: exit, exit_group
@@ -495,38 +492,20 @@ sandbox2::PolicyBuilder CreateBasePolicy(absl::string_view binary,
   builder.AllowSyscall(__NR_sched_getaffinity);
 
   // Miscellaneous filesystem syscalls not covered above.
-  builder.AllowSyscalls({
-#ifdef __NR_access
-      __NR_access,
-#endif
-      __NR_faccessat,
-      __NR_close,
-      __NR_lseek,
-      __NR_getcwd,
-      __NR_pipe2,
-      __NR_ioctl,
-#ifdef __NR_unlink
-      __NR_unlink,
-#endif
-      __NR_unlinkat,
-      __NR_dup,
-#ifdef __NR_poll
-      __NR_poll,
-#endif
-      __NR_ppoll,
-      __NR_statx,
-  });
+  builder.AllowAccess();
+  builder.AllowSyscall(__NR_close);
+  builder.AllowSyscall(__NR_lseek);
+  builder.AllowSyscall(__NR_getcwd);
+  builder.AllowPipe();
+  builder.AllowSyscall(__NR_ioctl);
+  builder.AllowUnlink();
+  builder.AllowDup();
+  builder.AllowPoll();
+  builder.AllowSyscall(__NR_statx);
 
   // Event syscalls are needed for Node's async functionality.
-  builder.AllowSyscalls({
-      __NR_eventfd2,
-      __NR_epoll_create1,
-      __NR_epoll_ctl,
-      __NR_epoll_pwait,
-#ifdef __NR_epoll_wait
-      __NR_epoll_wait,
-#endif
-  });
+  builder.AllowSyscall(__NR_eventfd2);
+  builder.AllowEpoll();
 
   // syscall needed for Node's available memory check
   builder.AllowSyscalls({__NR_sysinfo});

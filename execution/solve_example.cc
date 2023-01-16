@@ -190,9 +190,16 @@ The good solution passes all tests.
 
 int main(int argc, char* argv[]) {
   absl::ParseCommandLine(argc, argv);
-  if (absl::Status status = deepmind::code_contests::SolveGregorAndCryptography(
-          absl::GetFlag(FLAGS_valid_path));
-      !status.ok()) {
-    std::cerr << "Failed: " << status.message() << std::endl;
+  const std::string filename = absl::GetFlag(FLAGS_valid_path);
+  if (filename.empty()) {
+    std::cerr << "The flag `valid_path` was empty and it should not be, please "
+                 "pass `--valid_path=...` "
+              << std::endl;
+  } else {
+    absl::Status status =
+        deepmind::code_contests::SolveGregorAndCryptography(filename);
+    if (!status.ok()) {
+      std::cerr << "Failed: " << status.message() << std::endl;
+    }
   }
 }
