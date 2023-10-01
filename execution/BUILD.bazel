@@ -140,3 +140,15 @@ cc_library(
         "@com_google_absl//absl/synchronization",
     ],
 )
+
+
+load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
+
+pybind_extension(
+    name = "py_tester_extention",  # This name is not actually created!
+    srcs = ["py_tester_sandboxer_bindings.cc"],
+     deps = [
+            ":py_tester_sandboxer",  # Assuming this is the cc_library for PyTesterSandboxer and related classes
+                                                    # Add any other dependencies.
+    ],
+)

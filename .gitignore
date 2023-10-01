@@ -1,0 +1,5 @@
+bazel-bin/
+bazel-testlogs/
+bazel-out/
+bazel-code_contests/
+

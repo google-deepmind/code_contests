@@ -178,7 +178,7 @@ PyTesterSandboxer::CreatePolicy(absl::string_view binary_path,
 #endif
   builder.AllowSyscall(__NR_renameat);
   builder.AllowSyscall(__NR_renameat2);
-
+  builder.AllowSyscall(__NR_arch_prctl);
   // Python fails if /dev/urandom is mounted as read-only, despite opening it as
   // O_RDONLY. For now, just mount it as read-write.
   builder.AddFile("/dev/urandom", /*is_ro=*/false);
