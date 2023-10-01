@@ -1,5 +1,7 @@
-bazel-bin/
-bazel-testlogs/
-bazel-out/
-bazel-code_contests/
-
+bazel-bin
+bazel-testlogs
+bazel-out
+bazel-code_contests
+**/*/build/
+**/*.egg-info/
+**/*/dist/
