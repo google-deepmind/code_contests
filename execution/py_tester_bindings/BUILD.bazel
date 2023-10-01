@@ -1,0 +1,15 @@
+# Functionality for sandboxed execution, i.e. running code on an input and
+# collecting its output.
+
+licenses(["notice"])
+
+load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
+
+pybind_extension(
+    name = "py_tester_extention", 
+    srcs = ["py_tester_sandboxer_bindings.cc"],
+     deps = [
+            "//execution:py_tester_sandboxer", 
+                                                 
+    ],
+)
