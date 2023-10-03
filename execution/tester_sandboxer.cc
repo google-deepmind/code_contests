@@ -632,10 +632,10 @@ sandbox2::PolicyBuilder CreateBasePolicy(absl::string_view binary,
 
   // Disables stack traces on violations, crashes, timeouts and signals.
   // Done to reduce the amount of unnecessary clutter in the output logs.
-  builder.CollectStacktracesOnViolation(false);
-  builder.CollectStacktracesOnSignal(false);
-  builder.CollectStacktracesOnTimeout(false);
-  builder.CollectStacktracesOnKill(false);
+  builder.CollectStacktracesOnViolation(true);
+  builder.CollectStacktracesOnSignal(true);
+  builder.CollectStacktracesOnTimeout(true);
+  builder.CollectStacktracesOnKill(true);
 
   return builder;
 }

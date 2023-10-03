@@ -1,0 +1,11 @@
+bazel-bin
+bazel-testlogs
+bazel-out
+bazel-code_contests
+**/*/build/
+**/*.egg-info/
+**/*/dist/
+.DS_Store
+.idea
+**/*/__pycache__/*
+
