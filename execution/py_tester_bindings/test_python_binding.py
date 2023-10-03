@@ -9,7 +9,7 @@ print(x)
 
 
 def test_binding(python_310_bin_path, python_310_lib_path):
-    tester = Py3TesterSandboxer(python_310_bin_path, [python_310_lib_path])
+    tester = Py3TesterSandboxer(python_310_bin_path, python_310_lib_path.split(","))
     options = TestOptions()
     options.num_threads = 4
     options.stop_on_first_failure = True
